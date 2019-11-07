@@ -1,0 +1,266 @@
+*{
+    margin:0px;
+    padding:0px;
+}
+
+html, body{
+    height:100%;
+}
+
+body{
+    background-color:#f5efeb;
+}
+
+h1{
+    font-size:40px;
+}
+p{
+    font-size:25px;
+}
+
+.main-container{
+    height:50%;
+}
+ .pianoContainer {
+     margin:auto;
+     width:550px; 
+     background-color:grey;
+     height:300px;
+     position:relative;
+     
+}
+
+.white-key{
+    border-radius:2px 2px 4px 4px;
+    width:14.28%;
+    height:100%;
+    background-color:white;
+    border:1px solid grey;
+    position:absolute;
+    top:0;
+    box-shadow: 3px 4px 10px 0px rgba(122,122,122,1), inset -3px 0 3px rgba(143, 143, 143, 0.5);
+    transition: background-color 1.5s ease-out;
+}
+
+.white-key.lighted{
+    background-color:#f5d9d0;
+}
+
+.black-key{
+    width:10%;
+    height:50%;
+    border-radius: 0 0 8px 8px;
+    background-color:black;
+    position:absolute;
+    top:0;
+    box-shadow: 2px 2px 3px 0px rgba(122,122,122,1), inset 3px -3px 4px rgba(255, 255, 255, 0.4) ;
+    transition: background-color 1.5s ease-out;
+}
+
+.black-key.lighted{
+    background-color:#8a8483;
+}
+
+.black-key.Csharp{
+    left:9.28%;
+}
+
+.black-key.Dsharp{
+    left:23.56%;
+}
+
+.black-key.Fsharp{
+    left:52.14%;
+}
+
+.black-key.Gsharp{
+    left:66.43%;
+}
+
+.black-key.Asharp{
+    left:80.71%;
+}
+
+.white-key.C{
+    left:0;
+}
+
+.white-key.D{
+    left:14.28%;
+}
+
+.white-key.E{
+    left:28.57%;
+}
+
+.white-key.F{
+    left:42.86%;
+}
+
+.white-key.G{
+    left:57.14%;
+}
+
+.white-key.A{
+    left:71.43%;
+}
+
+.white-key.B{
+    left:85.71%;
+}
+
+.white-key .key-text{
+    padding-top:330%;
+    color:white;
+    padding-left:45%;
+    transition: color 2s ease-out;
+}
+
+.white-key.lighted .key-text{
+    color:slategrey;
+}
+
+.black-key .key-text{
+    padding-top:200%;
+    color:black;
+    padding-left:40%;
+    transition: color 2s ease-out;
+}
+
+.black-key.lighted .key-text{
+    color:white;
+}
+
+.hero {
+    position:relative;
+    overflow:hidden;
+    display:block;
+    width:100%;
+    text-align:center;
+    height:40%;
+    background-color:inherit;
+}
+
+.hero .hero-image{
+    position:static;
+    height:100%;
+    background-color:inherit;
+}
+
+.hero-image img{
+    float:left;
+    height:100%;
+    background-blend-mode:multiply;
+    mix-blend-mode: multiply;
+}
+
+.hero .hero-text{
+    text-shadow: white 2px 2px 5px, white -2px -2px 5px ;
+    position:absolute;
+    top:25%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    margin:auto;
+    letter-spacing:0.3em;
+}
+
+.container {
+
+}
+
+.row{
+    box-sizing:border-box;
+    text-align:center;
+    margin:10px;
+    display:block;
+    width:100%;
+}
+
+.row h4{
+    margin:1.5em 0 1em 0;
+    letter-spacing:0.1em;
+    font-weight:400;
+}
+
+.startButton button{
+    font-weight:600;
+    margin:5px;
+    font-size:15px;
+    background-color:aliceblue;
+    border-radius:5px;
+    box-shadow: 1px 1px 2px #696969, -1px -1px 1px #696969;
+    padding:0.1em 0.6em;
+    letter-spacing:0.1em;
+    font:inherit;
+}
+
+.startButton button:hover{
+    background-color:lightblue;
+    cursor:pointer;
+}
+
+.guessButton button{
+    font-weight:400;
+    background-color:transparent;
+    font-size:100%;
+    border:none;
+    mix-blend-mode:multiply;
+    background-blend-mode:multiply;
+    margin:5px;
+    border-style: none;
+    padding:0.1em 0.4em;
+    outline:none;
+    letter-spacing: 0.1em;
+    text-decoration:underline;
+}
+
+.guessButton button:hover{
+    cursor:pointer;
+    text-shadow: #fccfcf 1px 1px 3px, #fccfcf -1px -1px 3px ;
+    
+}
+
+.squareEmpty{
+    margin:100px auto;
+    border-style:solid;
+    width:300px;
+    height:50px;
+}
+
+.squareEmpty h3{
+    float:left;
+    padding-left:5px;
+}
+
+.squareCorrect{
+    margin:auto;
+    border-style:solid;
+    width:300px;
+    height:50px;
+    background-color:lawngreen;
+}
+
+.squareCorrect h3{
+    text-align:left;
+    float:left;
+    padding-left:5px;
+}
+
+.squareFalse{
+    margin:auto;
+    border-style:solid;
+    width:300px;
+    height:50px;
+    background-color:red;
+}
+
+.squareFalse h3{
+    text-align:left;
+    float:left;
+    padding-left:5px;
+}
+
+
+
+
+

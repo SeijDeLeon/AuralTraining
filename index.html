@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<head>
+    <title> &#9838 Aural Music Training &#9834</title>
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+    <audio id="ionian">
+        <source src="ionian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="dorian">
+        <source src="dorian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="phrygian">
+        <source src="phrygian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="lydian">
+        <source src="lydian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="mixolydian">
+        <source src="mixolydian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="aeolian">
+        <source src="aeolian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    <audio id="locrian">
+        <source src="locrian.m4a" type="audio/mpeg"> 
+        Your browser does not support the audio element. Try using the latest version of google chrome instead.
+    </audio>
+    
+    
+<section class="hero">
+    <div class="hero-image">
+        <img src="nujabesBackground.jpg" >
+    </div>
+    <div class="hero-text"> 
+        <h1>AURAL TRAINING</h1>
+        <p>Expand Your Senses</p>
+    </div>
+</section>
+
+<section class ="main-container">
+    <div class="row">
+    <div class="startButton">
+        <button onclick="playAudio()" type="button">Play</button>   
+         <button onclick="pauseAudio()" type="button">Pause</button>    
+    </div>
+</div>
+        <div class = "pianoContainer">
+            <div class = "white-key C" id="C">
+                <div class = "key-text">C</div>
+            </div>
+            
+            <div class = "white-key D" id="D">
+                <div class = "key-text">D</div>
+            </div>
+            <div class = "white-key E" id="E">
+                <div class = "key-text">E</div>
+            </div>
+            <div class = "white-key F" id="F">
+                <div class = "key-text">F</div>
+            </div>
+            <div class = "white-key G" id="G">
+                <div class = "key-text">G</div>
+            </div>
+            <div class = "white-key A" id="A">
+                <div class = "key-text">A</div>
+            </div>
+            <div class = "white-key B" id="B">
+                <div class = "key-text">B</div>
+            </div>
+            <div class = "black-key Csharp" id="C#">
+                <div class = "key-text">C# <div>Db</div></div>
+            </div>
+            <div class = "black-key Dsharp" id="D#">
+                <div class = "key-text">D# <div>Eb</div></div>
+            </div>
+            <div class = "black-key Fsharp" id="F#">
+                <div class = "key-text">F# <div>Gb</div></div>
+            </div>
+            <div class = "black-key Gsharp" id="G#">
+                <div class = "key-text">G# <div>Ab</div></div>
+            </div>
+            <div class = "black-key Asharp" id="A#">
+                <div class = "key-text">A# <div>Bb</div></div>
+            </div>
+            
+        </div>
+    
+<div class="container">
+
+<div class="row">
+    <h4>Select the Correct Scale Below</h4>
+    <div class ="guessButton">
+        <button onclick="checkResult('ionian')" type="button">Ionian</button>
+        <button onclick="checkResult('dorian')" type="button">Dorian</button>
+        <button onclick="checkResult('phrygian')" type="button">Phrygian</button>
+        <button onclick="checkResult('lydian')" type="button">Lydian</button>
+        <button onclick="checkResult('mixolydian')" type="button">Mixolydian</button>
+        <button onclick="checkResult('aeolian')" type="button">Aeolian</button>
+        <button onclick="checkResult('locrian')" type="button">Locrian</button>
+    </div>
+</div>
+    <div class="squareEmpty">
+        <h3>Your Guess:</h3>
+    <h3 id="temporaryBox"></h3>
+    </div>
+   <div class="squareEmpty" id="square">
+       <h3>Result:</h3>
+    <h3 id="result"></h3>
+    </div>
+
+</div>
+</section>
+
+<script>
+    var mode=["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian" ];
+    var max=7;
+    var min=1;
+    var correct;
+    var audioSample;
+    function playAudio(){
+        if (audioSample){
+            pauseAudio();
+        }
+        document.getElementById("result").innerHTML = "";
+        document.getElementById("temporaryBox").innerHTML="";
+        document.getElementById("square").className = "squareEmpty";
+        var randomInteger = Math.floor(Math.random()*(max-min + 1)) + min;
+        correct = mode[randomInteger-1];
+        lightKeys(correct);
+        audioSample = document.getElementById(correct);
+        audioSample.play();
+    }
+    
+    function pauseAudio(){
+        audioSample.pause();
+    }
+    
+    function lightKeys(correctMode) {
+        var color = "#ffe9e3";
+        var notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#","A", "A#", "B"];
+        var i;
+        for (i=0; i<notes.length; i++){
+        document.getElementById(notes[i]).classList.remove("lighted");
+        }
+        switch(correctMode){
+            case mode[0]:
+                var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[11]];
+                console.log("Entered ionian");
+                break;
+            case mode[1]:
+                var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[9],notes[10]];
+                console.log("Entered Dorian");
+                break;
+            case mode[2]:
+                var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[7],notes[8],notes[10]];
+                console.log("Entered phrygian");
+                break;
+            case mode[3]:
+                var correctOrder = [notes[0],notes[2],notes[4],notes[6],notes[7],notes[9],notes[11]];
+                console.log("Entered lydian");
+                break;
+            case mode[4]:
+                var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[10]];
+                console.log("Entered mixolydian");
+                break;
+            case mode[5]:
+                var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[8],notes[10]];
+                console.log("Entered aeolian");
+                break;
+            case mode[6]:
+                var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[6],notes[8],notes[10]];
+                console.log("Entered locrian");
+                break;
+        }
+        for (i=0; i<correctOrder.length; i++){
+        document.getElementById(correctOrder[i]).classList.add("lighted");
+        }
+    }
+    
+    function checkResult(test){
+        var result = document.getElementById("result");
+        result.innerHTML = correct;
+        document.getElementById("temporaryBox").innerHTML = test;
+        if (test == correct) {
+        document.getElementById("square").className = "squareCorrect";
+        } else {
+               document.getElementById("square").className = "squareFalse"; 
+            } 
+    }
+</script>
+    
+    
+</body>
+</html>
