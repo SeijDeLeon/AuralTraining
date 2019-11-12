@@ -26,10 +26,13 @@ p{
      width:550px; 
      background-color:grey;
      height:300px;
-     position:relative;
-     
+     position:relative;          
 }
 
+.pianoContainer:hover{
+    cursor:pointer;
+    box-shadow: 15px 15px 20px #d2e2fc, -15px -15px 20px #d2e2fc;
+}
 .white-key{
     border-radius:2px 2px 4px 4px;
     width:14.28%;
@@ -148,10 +151,26 @@ p{
 }
 
 .hero-image img{
-    float:left;
+    position:absolute;
+    top:0;
+    left:0;
     height:100%;
     background-blend-mode:multiply;
     mix-blend-mode: multiply;
+}
+
+.hero-image-mirror img{
+    position:absolute;
+    top:0;
+    right:0;
+    height:100%;
+    background-blend-mode: multiply;
+    mix-blend-mode: multiply;
+    transition: opacity 2s linear;
+}
+
+.hero-image-mirror img:not(:first-child){
+    opacity:0;
 }
 
 .hero .hero-text{

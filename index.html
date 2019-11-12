@@ -43,6 +43,16 @@
     <div class="hero-image">
         <img src="nujabesBackground.jpg" >
     </div>
+    <div class="hero-image-mirror">
+        <img src="nujabesBackground0.jpg" id="p0">
+        <img src="nujabesBackground1.jpg" id="p1">
+        <img src="nujabesBackground2.jpg" id="p2">
+        <img src="nujabesBackground3.jpg" id="p3">
+        <img src="nujabesBackground4.jpg" id="p4">
+        <img src="nujabesBackground5.jpg" id="p5">
+        <img src="nujabesBackground6.jpg" id="p6">
+        <img src="nujabesBackground7.jpg" id="p7">
+    </div>
     <div class="hero-text"> 
         <h1>AURAL TRAINING</h1>
         <p>Expand Your Senses</p>
@@ -50,13 +60,13 @@
 </section>
 
 <section class ="main-container">
-    <div class="row">
+    <!--<div class="row">
     <div class="startButton">
         <button onclick="playAudio()" type="button">Play</button>   
          <button onclick="pauseAudio()" type="button">Pause</button>    
     </div>
-</div>
-        <div class = "pianoContainer">
+</div> -->
+        <div class = "pianoContainer" onclick="playAudio()">
             <div class = "white-key C" id="C">
                 <div class = "key-text">C</div>
             </div>
@@ -100,96 +110,133 @@
 <div class="container">
 
 <div class="row">
-    <h4>Select the Correct Scale Below</h4>
+    <h4 id="textInstruction">Select the Correct Scale Below</h4>
     <div class ="guessButton">
-        <button onclick="checkResult('ionian')" type="button">Ionian</button>
-        <button onclick="checkResult('dorian')" type="button">Dorian</button>
-        <button onclick="checkResult('phrygian')" type="button">Phrygian</button>
-        <button onclick="checkResult('lydian')" type="button">Lydian</button>
-        <button onclick="checkResult('mixolydian')" type="button">Mixolydian</button>
-        <button onclick="checkResult('aeolian')" type="button">Aeolian</button>
-        <button onclick="checkResult('locrian')" type="button">Locrian</button>
+        <button onclick="playAudio('Guess_ionian')" type="button" id="ionianButton">Ionian</button>
+        <button onclick="playAudio('Guess_dorian')" type="button" id="dorianButton">Dorian</button>
+        <button onclick="playAudio('Guess_phrygian')" type="button" id="phrygianButton">Phrygian</button>
+        <button onclick="playAudio('Guess_lydian')" type="button" id="lydianButton">Lydian</button>
+        <button onclick="playAudio('Guess_mixolydian')" type="button" id="mixolydianButton">Mixolydian</button>
+        <button onclick="playAudio('Guess_aeolian')" type="button" id="aeolianButton">Aeolian</button>
+        <button onclick="playAudio('Guess_locrian')" type="button" id="locrianButton">Locrian</button>
     </div>
 </div>
-    <div class="squareEmpty">
-        <h3>Your Guess:</h3>
-    <h3 id="temporaryBox"></h3>
-    </div>
-   <div class="squareEmpty" id="square">
-       <h3>Result:</h3>
-    <h3 id="result"></h3>
-    </div>
 
 </div>
 </section>
 
 <script>
     var mode=["ionian", "dorian", "phrygian", "lydian", "mixolydian", "aeolian", "locrian" ];
+    var buttonId=["ionianButton", "dorianButton", "phrygianButton", "lydianButton", "mixolydianButton", "aeolianButton", "locrianButton"];
     var max=7;
     var min=1;
     var correct;
     var audioSample;
-    function playAudio(){
+
+    
+    function playAudio(modeGuess){
+        console.log("entered play audio");
+        //grab a list of remaining modes
+        var playList=[];
+        var numberCorrect = 7;
+        for (let i=0; i<7; i++){
+            if (document.getElementById(buttonId[i]).style.display !== "none") {
+                playList.push(mode[i]);
+                numberCorrect--;
+            }
+        }
+        if(modeGuess){
+            checkResult(modeGuess.slice(6));
+        } else{
+        
+        
         if (audioSample){
             pauseAudio();
         }
-        document.getElementById("result").innerHTML = "";
-        document.getElementById("temporaryBox").innerHTML="";
-        document.getElementById("square").className = "squareEmpty";
-        var randomInteger = Math.floor(Math.random()*(max-min + 1)) + min;
-        correct = mode[randomInteger-1];
-        lightKeys(correct);
-        audioSample = document.getElementById(correct);
-        audioSample.play();
+        
+        
+        //randomly select one of the remaining modes to be played
+        var randomInteger = Math.floor(Math.random()*(playList.length));
+        correctMode = playList[randomInteger];
+        lightKeys(correctMode); //start the keylighting before the chord plays
+        audioSample = document.getElementById(correctMode);
+        audioSample.play(); //play audio
+            console.log("played audio");
+        }
+        
+            function checkResult(userGuess){
+                if (userGuess === correctMode){
+                    document.getElementById(correctMode+"Button").style.display = "none"; //hide the mode when correctly selected
+                    console.log(numberCorrect);
+                    if (numberCorrect !== 7){
+                        document.getElementById("p"+numberCorrect).style.opacity = "0"; //hide the current mixed color image
+                        let pictureIndex = numberCorrect +1;
+                        //document.getElementById("p"+pictureIndex).style.visibility = "visible"; //show the next image with more colors 
+                        document.getElementById("p"+pictureIndex).style.opacity = "1";
+                        lightKeys("off");
+                    }
+                    
+                }            
+            }        
     }
+    
+            
     
     function pauseAudio(){
         audioSample.pause();
     }
     
     function lightKeys(correctMode) {
-        var color = "#ffe9e3";
         var notes = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#","A", "A#", "B"];
-        var i;
-        for (i=0; i<notes.length; i++){
-        document.getElementById(notes[i]).classList.remove("lighted");
-        }
-        switch(correctMode){
-            case mode[0]:
-                var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[11]];
-                console.log("Entered ionian");
-                break;
-            case mode[1]:
-                var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[9],notes[10]];
-                console.log("Entered Dorian");
-                break;
-            case mode[2]:
-                var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[7],notes[8],notes[10]];
-                console.log("Entered phrygian");
-                break;
-            case mode[3]:
-                var correctOrder = [notes[0],notes[2],notes[4],notes[6],notes[7],notes[9],notes[11]];
-                console.log("Entered lydian");
-                break;
-            case mode[4]:
-                var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[10]];
-                console.log("Entered mixolydian");
-                break;
-            case mode[5]:
-                var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[8],notes[10]];
-                console.log("Entered aeolian");
-                break;
-            case mode[6]:
-                var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[6],notes[8],notes[10]];
-                console.log("Entered locrian");
-                break;
-        }
-        for (i=0; i<correctOrder.length; i++){
-        document.getElementById(correctOrder[i]).classList.add("lighted");
+        
+        if(correctMode === "off"){
+            for (let i=0; i<notes.length; i++){
+            document.getElementById(notes[i]).classList.remove("lighted");
+            };
+            
+        } else{
+            for (let i=0; i<notes.length; i++){
+            document.getElementById(notes[i]).classList.remove("lighted");
+            };
+            switch(correctMode){
+                case mode[0]:
+                    var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[11]];
+                    console.log("Entered ionian");
+                    break;
+                case mode[1]:
+                    var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[9],notes[10]];
+                    console.log("Entered Dorian");
+                    break;
+                case mode[2]:
+                    var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[7],notes[8],notes[10]];
+                    console.log("Entered phrygian");
+                    break;
+                case mode[3]:
+                    var correctOrder = [notes[0],notes[2],notes[4],notes[6],notes[7],notes[9],notes[11]];
+                    console.log("Entered lydian");
+                    break;
+                case mode[4]:
+                    var correctOrder = [notes[0],notes[2],notes[4],notes[5],notes[7],notes[9],notes[10]];
+                    console.log("Entered mixolydian");
+                    break;
+                case mode[5]:
+                    var correctOrder = [notes[0],notes[2],notes[3],notes[5],notes[7],notes[8],notes[10]];
+                    console.log("Entered aeolian");
+                    break;
+                case mode[6]:
+                    var correctOrder = [notes[0],notes[1],notes[3],notes[5],notes[6],notes[8],notes[10]];
+                    console.log("Entered locrian");
+                    break;
+            }
+            for (i=0; i<correctOrder.length; i++){
+            document.getElementById(correctOrder[i]).classList.add("lighted");
+            }
         }
     }
     
-    function checkResult(test){
+    
+    
+    function oldcheckResult(test){
         var result = document.getElementById("result");
         result.innerHTML = correct;
         document.getElementById("temporaryBox").innerHTML = test;
